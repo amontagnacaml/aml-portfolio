@@ -1,16 +1,20 @@
 -- ============================================================
--- AML PRACTICE DATABASE — DEBLOCK PORTFOLIO
+-- AML PRACTICE DATABASE — PORTFOLIO DATASET
 -- ============================================================
--- Import this file into sqliteonline.com
--- Contains 5 hidden AML patterns for you to detect:
---   1. Velocity (rapid account drainage)
+-- Fictional dataset built to develop and test SQL-based
+-- AML detection queries. Contains 5 embedded typologies:
+--   1. Velocity detection (rapid account drainage)
 --   2. Pass-through (funds transit without retention)
---   3. Income variance (actual vs declared)
---   4. Circular patterns (A→B→C→A)
---   5. Multi-recipient dispersion (one source → many recipients)
+--   3. Income variance (actual vs declared revenue)
+--   4. Circular patterns (A→B→C→A layering)
+--   5. Multi-recipient dispersion (aggregator accounts)
 --
--- 20 customers, ~180 transactions, 3 months of data
--- Some customers are clean. Some are suspicious. Find them.
+-- 20 fictional customers, ~180 transactions, 3 months of data
+-- Compatible with SQLite, PostgreSQL, MySQL
+--
+-- Note: All persons and transactions are entirely fictional.
+-- No real data is represented.
+-- ============================================================
 -- ============================================================
 
 
