@@ -108,8 +108,8 @@ Most compliance professionals describe their skills on a CV. This portfolio **de
 
 ## Contact
 
-- **Email:** a.m.pro@gmail.com
-- **LinkedIn:** linkedin.com/in/am-compliance
+- **Email:** a.montagnac.pro@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/a-montagnac-8915a03ba
 - **Location:** Paris, France — available for remote positions across EU
 
 ---
