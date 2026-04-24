@@ -4,6 +4,11 @@
 
 FinTech Compliance Analyst with 2+ years of continuous client risk monitoring (KYC/KYB) and 1+ year of transaction-level financial profiling. This portfolio demonstrates the technical and regulatory skills I apply to suspicious transaction detection, SAR writing, and AML compliance within a French-regulated FinTech environment.
 
+Note: This portfolio focuses on transaction monitoring and financial 
+crime detection, complementing a core background in KYB/KYC continuous 
+monitoring and corporate risk assessment (UBO identification, beneficial 
+ownership structures, nominee director detection).
+
 **Core expertise:** Variance analysis between declared revenue and actual transaction volumes, AML typology detection (structuring, pass-through, layering), formal escalation workflows, and French regulatory compliance (Tracfin, ACPR, CNRLT).
 
 ---
