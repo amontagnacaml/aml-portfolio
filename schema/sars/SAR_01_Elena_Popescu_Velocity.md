@@ -10,7 +10,7 @@
 
 | Field | Details |
 |-------|---------|
-| **Entity Name** | Deblock SA |
+| **Entity Name** | Anonymised SA |
 | **Registration** | PSAN registered — AMF / ACPR supervised |
 | **Address** | [Registered Office], Paris, France |
 | **Declarant Role** | FinCrime Specialist — Tracfin Declarant |
@@ -121,7 +121,7 @@ Based on the transaction patterns, profile inconsistencies, and behavioural indi
 
 1. **Money Laundering (Article 324-1 Code pénal)** — The account is used to receive funds from multiple sources and rapidly redistribute them to high-risk jurisdictions, consistent with the layering phase of money laundering.
 
-2. **Acting as a Money Mule** — The subject's profile (young freelancer, recently opened account, no prior banking history with Deblock) combined with the transaction throughput significantly exceeding declared income suggests the account holder may be acting as an intermediary, whether knowingly or unknowingly.
+2. **Acting as a Money Mule** — The subject's profile (young freelancer, recently opened account, no prior banking history with Anonymised SA) combined with the transaction throughput significantly exceeding declared income suggests the account holder may be acting as an intermediary, whether knowingly or unknowingly.
 
 3. **Potential Structuring (Article L.561-15 CMF)** — The recurring transfers from STANESCU just below €1,000 suggest deliberate fragmentation to avoid triggering automated detection thresholds.
 
@@ -194,7 +194,7 @@ This report is not submitted as a precautionary or de-risking measure. The suspi
 
 This report is submitted in accordance with Article L.561-15 of the Code monétaire et financier. The reporting entity has acted in good faith and benefits from the protections outlined in Article L.561-22 CMF. No disclosure of this report has been or will be made to the subject or any third party (Article L.561-19 CMF — tipping-off prohibition).
 
-**Submitted by:** FinCrime Specialist, Deblock SA
+**Submitted by:** FinCrime Specialist, Anonymised SA
 **Date:** 2026-04-14
 **Platform:** ERMES
 
