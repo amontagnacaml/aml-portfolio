@@ -10,7 +10,7 @@
 
 | Field | Details |
 |-------|---------|
-| **Entity Name** | Anonymised SA |
+| **Entity Name** | Fintech SA |
 | **Registration** | PSAN registered — AMF / ACPR supervised |
 | **Address** | [Registered Office], Paris, France |
 | **Declarant Role** | FinCrime Specialist — Tracfin Declarant |
@@ -194,7 +194,7 @@ This report is not submitted as a precautionary or de-risking measure. The suspi
 
 This report is submitted in accordance with Article L.561-15 of the Code monétaire et financier. The reporting entity has acted in good faith and benefits from the protections outlined in Article L.561-22 CMF. No disclosure of this report has been or will be made to the subject or any third party (Article L.561-19 CMF — tipping-off prohibition).
 
-**Submitted by:** FinCrime Specialist, Anonymised SA
+**Submitted by:** FinCrime Specialist, Fintech SA 
 **Date:** 2026-04-14
 **Platform:** ERMES
 
