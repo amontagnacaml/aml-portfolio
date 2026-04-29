@@ -73,7 +73,7 @@
 | Source | Country | Total Received | # Transfers | Avg Amount | Pattern |
 |--------|---------|---------------|-------------|------------|---------|
 | Eurobridge Trading EOOD | Bulgaria | €168,500 | 34 | €4,956 | Regular, weekly, amounts vary between €3,000-€8,000 |
-| KOVACS, T. (via USDT → fiat) | Hungary | €52,300 | 18 | €2,906 | USDT received on-chain, converted to EUR via Deblock |
+| KOVACS, T. (via USDT → fiat) | Hungary | €52,300 | 18 | €2,906 | USDT received on-chain, converted to EUR via Fintech SA |
 | Starline Services LTD | UK | €48,600 | 15 | €3,240 | Monthly clusters of 3-4 transfers within 48h |
 | Various individuals | Multiple | €43,000 | 22 | €1,955 | Sporadic, mostly from Eastern European IBANs |
 
@@ -95,7 +95,7 @@
 **Key observations:**
 - **Varna Logistics SRL receives 42% of all outgoing funds** — this Romanian entity has no visible online presence, no website, and its registered address corresponds to a residential building in a Bucharest suburb.
 - Cash withdrawals of €800 per transaction (consistently below the €1,000 reporting threshold) across 48 separate ATM transactions at 14 different ATM locations in Paris — this is structuring.
-- Crypto purchases (ETH) are immediately transferred to an external wallet not controlled by Deblock. The destination wallet shows on-chain activity consistent with mixer usage (multiple small outflows to unrelated addresses within 24h of receipt).
+- Crypto purchases (ETH) are immediately transferred to an external wallet not controlled by Fintech SA. The destination wallet shows on-chain activity consistent with mixer usage (multiple small outflows to unrelated addresses within 24h of receipt).
 
 ### 3.4 Circular Flow Detection — CRITICAL FINDING
 
@@ -104,11 +104,11 @@ Cross-referencing incoming and outgoing transactions reveals a **circular patter
 ```
 Eurobridge Trading (Bulgaria)
         ↓ €168,500
-  Bogdan M. (Deblock account)
+  Bogdan M. (Fintech SA account)
         ↓ €67,200
   Starline Services (UK)
         ↓ €48,600
-  Bogdan M. (Deblock account)    ← RETURN FLOW
+  Bogdan M. (Fintech SA account)    ← RETURN FLOW
         ↓ €124,800
   Varna Logistics (Romania)
         ↓ [suspected return to Eurobridge via Romanian banking system]
