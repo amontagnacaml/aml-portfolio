@@ -1,0 +1,293 @@
+-- ============================================================
+-- QUERY #1: VELOCITY DETECTION
+-- ============================================================
+-- WHAT IT DOES:
+--   Identifies accounts where large incoming deposits are
+--   drained within 72 hours — a key indicator of money mule
+--   activity, pass-through schemes, and rapid layering.
+--
+-- AML TYPOLOGY: Velocity / Rapid account drainage
+-- REGULATORY BASIS: CNRLT red flags, Tracfin typologies,
+--                   FATF Recommendation 1
+-- REAL-WORLD USE: Detects accounts used as transit points
+--                 where funds are received and immediately
+--                 redistributed before any investigation can
+--                 be triggered
+--
+-- AUTHOR: A.M — Compliance Analyst / AML Portfolio
+-- ============================================================
+
+
+-- ============================================================
+-- WHAT I DO MANUALLY (current role):
+--   When reviewing a client's financial profile, I compare
+--   incoming transaction dates against outgoing dates to
+--   assess whether funds are retained or immediately
+--   redistributed. A client who receives €8,500 on Monday
+--   and has €8,200 gone by Wednesday is flagged for review.
+--
+-- THIS QUERY (velocity) detects that pattern automatically
+--   across ALL clients simultaneously — per individual
+--   deposit, not just as a global ratio. It answers:
+--   "Which specific deposits were drained in under 72 hours,
+--   and by how much?"
+--
+-- CONNECTION TO FINANCIAL PROFILING:
+--   My annual review process catches this pattern over
+--   12 months. This query catches it in real time, per
+--   transaction — enabling intervention before funds leave
+--   to high-risk jurisdictions.
+-- ============================================================
+
+
+SELECT
+
+    -- --------------------------------------------------------
+    -- IDENTIFY THE CUSTOMER AND THE DEPOSIT
+    -- We need the customer name (from customers table) and
+    -- the specific deposit that triggered the velocity flag.
+    -- Unlike pass-through detection which looks at totals,
+    -- velocity detection is per individual deposit — this
+    -- tells us exactly WHICH transaction was drained and WHEN.
+    -- --------------------------------------------------------
+    t_in.customer_id,
+    c.last_name,
+    c.first_name,
+    c.declared_income,
+
+    -- --------------------------------------------------------
+    -- THE DEPOSIT (t_in)
+    -- The incoming transaction we are analysing.
+    -- deposit_date: when the money arrived
+    -- deposit_amount: how much arrived in this specific deposit
+    -- --------------------------------------------------------
+    t_in.tx_date    AS deposit_date,
+    t_in.amount     AS deposit_amount,
+
+    -- --------------------------------------------------------
+    -- TOTAL OUT WITHIN 72 HOURS
+    -- Sum of all outgoing transactions from the same account
+    -- within 3 days of this specific deposit.
+    -- SUM() aggregates all matching OUTs found by the JOIN.
+    -- --------------------------------------------------------
+    SUM(t_out.amount) AS total_out_72h,
+
+    -- --------------------------------------------------------
+    -- DRAIN RATIO (the key metric)
+    -- Formula: (total_out_72h / deposit_amount) × 100
+    --
+    -- Interpretation:
+    --   < 50%   → most funds retained = normal
+    --   50-79%  → elevated, could be legitimate
+    --   80-99%  → suspicious — almost fully drained
+    --   100%+   → critical — more exits than the deposit
+    --             (possible when multiple deposits arrive
+    --             the same day and are drained together)
+    --
+    -- * 100.0 forces decimal division in SQLite.
+    -- Without it: 14900 * 100 / 5000 = 298 (integer, correct
+    -- here but can truncate in other cases).
+    -- Best practice: always use 100.0 for ratio calculations.
+    -- --------------------------------------------------------
+    ROUND(
+        SUM(t_out.amount) * 100.0 / t_in.amount, 1
+    ) AS drain_ratio_pct
+
+
+-- --------------------------------------------------------
+-- SELF-JOIN — THE CORE TECHNIQUE
+--
+-- We join the transactions table with ITSELF.
+-- t_in  = the incoming deposit (the starting point)
+-- t_out = the outgoing transactions that follow
+--
+-- This is called a SELF-JOIN: querying one table as if
+-- it were two separate tables using aliases.
+--
+-- Three conditions must ALL be true simultaneously:
+-- --------------------------------------------------------
+FROM transactions t_in
+JOIN transactions t_out
+    ON  t_in.customer_id = t_out.customer_id
+    -- Condition 1: Same customer
+    -- Both transactions must belong to the same account.
+    -- Without this, we'd match deposits from one client
+    -- against withdrawals from a completely different client.
+
+    AND t_out.direction = 'OUT'
+    -- Condition 2: t_out must be an outgoing transaction
+    -- We only want to sum money leaving the account.
+    -- Without this, we'd accidentally sum other deposits too.
+
+    AND julianday(t_out.tx_date) - julianday(t_in.tx_date)
+        BETWEEN 0 AND 3
+    -- Condition 3: The outflow happens within 72 hours
+    -- julianday() converts a date to a decimal day number.
+    -- Subtracting gives the number of days between transactions.
+    -- BETWEEN 0 AND 3 means: same day (0) to 3 days later (72h).
+    -- A negative result would mean t_out happened BEFORE t_in
+    -- which is impossible for velocity detection — excluded.
+
+
+-- --------------------------------------------------------
+-- JOIN THE CUSTOMERS TABLE
+-- We add customer details (name, declared income) for
+-- context. The analyst reviewing results needs to know
+-- immediately whether the volume matches the profile.
+-- A €15,000 deposit drained in 72h means something very
+-- different for a lawyer vs a student.
+-- --------------------------------------------------------
+JOIN customers c ON t_in.customer_id = c.customer_id
+
+
+-- --------------------------------------------------------
+-- WHERE — Filter BEFORE joining
+-- Applied to t_in only (the deposit side).
+--
+-- Condition 1: Only incoming transactions as starting point
+-- t_in must be a deposit, not a withdrawal.
+--
+-- Condition 2: Minimum deposit threshold (€5,000)
+-- A 99% drain on €50 is not AML-relevant.
+-- €5,000 is calibrated for a FinTech customer base.
+-- In traditional banking, €10,000 is more common.
+-- This threshold should be tuned via rule tuning based
+-- on the actual customer base distribution.
+-- --------------------------------------------------------
+WHERE t_in.direction = 'IN'
+  AND t_in.amount >= 5000
+
+
+-- --------------------------------------------------------
+-- GROUP BY — Aggregate per individual deposit
+--
+-- WHY group by tx_id and not just customer_id?
+--
+-- A customer may receive multiple deposits over time.
+-- If we grouped only by customer_id, we would merge all
+-- deposits into one row, losing the per-deposit granularity.
+--
+-- By grouping on tx_id, we get one row per deposit —
+-- this tells us exactly WHICH deposit was drained,
+-- not just that the customer has a high ratio overall.
+--
+-- We also include customer_id, tx_date and amount in
+-- GROUP BY because they appear in the SELECT without
+-- being aggregated — SQL requires this.
+-- --------------------------------------------------------
+GROUP BY
+    t_in.tx_id,
+    t_in.customer_id,
+    t_in.tx_date,
+    t_in.amount
+
+
+-- --------------------------------------------------------
+-- HAVING — Filter AFTER aggregation
+--
+-- WHY HAVING and not WHERE?
+-- drain_ratio_pct doesn't exist until AFTER GROUP BY
+-- calculates it. WHERE runs before GROUP BY, so it
+-- cannot reference aggregated columns.
+-- HAVING runs after GROUP BY — the column exists.
+--
+-- Threshold: 80% or more of the deposit must have
+-- left the account within 72 hours to be flagged.
+-- --------------------------------------------------------
+HAVING drain_ratio_pct >= 80
+
+
+-- --------------------------------------------------------
+-- ORDER BY — Priority queue for analysts
+-- Highest ratio first = most critical cases at the top.
+-- An analyst reviewing alerts works top to bottom.
+-- --------------------------------------------------------
+ORDER BY drain_ratio_pct DESC;
+
+
+-- ============================================================
+-- EXPECTED OUTPUT (with AML practice database):
+--
+-- customer | last_name | deposit_date | deposit | out_72h | ratio
+-- C010 Marek    2026-02-01  5000   14900  298.0  ← CRITICAL
+-- C010 Marek    2026-03-01  7000   19900  284.3  ← CRITICAL
+-- C010 Marek    2026-03-01  13000  19900  153.1  ← CRITICAL
+-- C010 Marek    2026-02-01  10000  14900  149.0  ← CRITICAL
+-- C009 Popescu  2026-02-10  5500   6400   116.4  ← HIGH
+-- C010 Marek    2026-01-18  15000  14900  99.3   ← HIGH
+-- C009 Popescu  2026-01-15  6200   6150   99.2   ← HIGH
+-- C012 Petrov   2026-03-03  11000  10500  95.5   ← HIGH
+-- C013 Ionescu  2026-02-06  8500   8100   95.3   ← HIGH
+-- ... (all 5 suspicious customers flagged, 0 false positives)
+--
+-- NOTE: Ratios above 100% occur when multiple deposits
+-- arrive on the same day — the outflows within 72h exceed
+-- the individual deposit because several deposits are
+-- drained together. This is itself a red flag indicating
+-- highly concentrated, coordinated activity.
+-- ============================================================
+
+
+-- ============================================================
+-- FALSE POSITIVE REDUCTION
+--
+-- Some legitimate accounts may show high drain ratios:
+--
+-- 1. Business accounts paying suppliers same day
+--    → Cross-reference with occupation and declared income
+--      A restaurant owner paying Metro Cash & Carry = normal
+--      A student sending funds to Nigeria = suspicious
+--
+-- 2. One-time salary received + rent paid same day
+--    → Add counterparty filter: exclude known payees
+--      AND t_out.counterparty NOT LIKE '%Landlord%'
+--
+-- 3. Inter-account transfers (savings, investment)
+--    → Add tx_type filter:
+--      AND t_out.tx_type != 'INTERNAL'
+--
+-- In production: combine velocity flag with:
+--   - Counterparty jurisdiction risk
+--   - Transaction type (CRYPTO = higher weight)
+--   - Customer profile match (declared income vs volume)
+--   - Pattern repetition (one-off vs recurring)
+-- ============================================================
+
+
+-- ============================================================
+-- DIFFERENCE VS PASS-THROUGH DETECTION (Query #2)
+--
+-- Pass-Through (Query #2):
+--   → Looks at the GLOBAL ratio over the entire period
+--   → One row per customer
+--   → Answers: "Is this account generally a transit point?"
+--   → Best for: identifying money mule accounts overall
+--
+-- Velocity (Query #1):
+--   → Looks at each INDIVIDUAL deposit
+--   → One row per deposit
+--   → Answers: "Was this specific deposit drained in 72h?"
+--   → Best for: triggering real-time alerts per transaction
+--
+-- Use both together:
+--   A customer flagged by BOTH queries = escalate immediately
+--   Elena Popescu: flagged by both → HIGH risk confirmed
+--   Bogdan Marek: flagged by both → CRITICAL risk confirmed
+-- ============================================================
+
+
+-- ============================================================
+-- CONNECTION TO SAR CASES
+--
+-- Elena Popescu (SAR #1 — HIGH):
+--   Deposits from Romania drained within 24-48h to Nigeria
+--   and UAE via crypto. This query flags her deposits on
+--   2026-01-15 (99.2%), 2026-02-10 (116.4%), 2026-03-08.
+--   Each flag corresponds to a Tracfin-reportable event.
+--
+-- Bogdan Marek (SAR #2 — CRITICAL):
+--   Deposits from Eurobridge (Bulgaria) drained within 24h
+--   to Varna Logistics (Romania) and Starline (UK) via SEPA
+--   and ETH. Ratios of 298% confirm coordinated same-day
+--   drainage across the circular network.
+-- ============================================================
