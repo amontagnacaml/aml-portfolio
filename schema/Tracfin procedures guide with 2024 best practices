@@ -34,15 +34,17 @@ Under Article L.561-2 CMF, reporting entities include:
 
 ---
 
-## 3. THE 5-DAY SUBMISSION DEADLINE
+## 3. SUBMISSION DEADLINE
 
-### The Rule
+### The Legal Text
 
-Under Article L.561-15 CMF, once a suspicion is formalised, the reporting entity must submit the STR **as soon as possible**. In practice, Tracfin expects submission within **5 working days** of the suspicion being formalised.
+Under **Article L.561-15 CMF**, once a suspicion is formalised, the reporting entity must submit the STR **"dans les meilleurs délais"** — meaning "as soon as possible". The law does not specify a fixed number of days.
+
+> **Important precision:** The "5 working days" figure is **not written in law**. It is the operational standard communicated by Tracfin to reporting entities through their guidelines and the ERMES platform, and it reflects ACPR supervisory expectations in practice. In an interview or regulatory context, always state: *"The law requires submission as soon as possible under Article L.561-15 CMF — Tracfin's operational guidance establishes 5 working days as the expected standard from the moment suspicion is formalised."*
 
 ### What Triggers the Clock
 
-The 5-day deadline starts when the suspicion is **formalised** — meaning when the compliance team has completed its assessment and determined that the activity is suspicious (not merely atypical). The distinction matters:
+The deadline starts when the suspicion is **formalised** — meaning when the compliance team has completed its assessment and concluded that the activity is suspicious (not merely atypical). There is no statutory maximum for the investigation phase before formalisation, provided the delay is justified and documented.
 
 | Stage | Status | Clock |
 |-------|--------|-------|
@@ -52,18 +54,22 @@ The 5-day deadline starts when the suspicion is **formalised** — meaning when 
 | L2/L3 concludes: this is suspicious → escalates to declarant | **Suspicion formalised** | **Clock starts** |
 | FinCrime Specialist drafts and submits SAR on ERMES | Submitted | Clock stops |
 
+**Key implication:** A complex investigation may legitimately take weeks before suspicion is formalised. What matters is that once formalised, submission is prompt — and that the entire process is documented in the audit trail.
+
 ### Pre-Transaction Reporting
 
 Where possible, Tracfin encourages reporting **before** the suspicious transaction is executed. This enables Tracfin to exercise its **droit d'opposition** (right to object) — a temporary blocking order that prevents the transaction from going through for up to 10 working days (renewable once).
 
-### Consequences of Late Filing
+### Consequences of Late or Missing Filing
 
 | Scenario | Risk |
 |----------|------|
-| Late filing (>5 days) | Regulatory criticism, potential ACPR sanction |
-| Systematic late filing | ACPR formal warning or sanction (€5k–€500k) |
+| Delayed filing without justification | Regulatory criticism, potential ACPR sanction |
+| Systematic delays | ACPR formal warning or sanction (€5k–€500k) |
 | Failure to file | Criminal liability under Article L.574-1 CMF — up to 5 years imprisonment and €375,000 fine for individuals |
 | Tipping off the subject | Criminal offence under Article L.574-1 CMF |
+
+> **Note on "maximum":** There is no statutory maximum deadline in the law. ACPR assesses delays on a case-by-case basis, considering whether the investigation phase was proportionate and whether the audit trail justifies the timeline.
 
 ---
 
