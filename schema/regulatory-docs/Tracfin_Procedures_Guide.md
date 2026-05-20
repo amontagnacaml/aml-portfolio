@@ -30,7 +30,7 @@ Under Article L.561-2 CMF, reporting entities include:
 
 **Non-financial sector:** Notaries, lawyers (under specific conditions), auditors, accountants, real estate agents, casinos, high-value goods dealers, art market participants, sports agents.
 
-**For Deblock / crypto-native FinTech:** As a PSAN registered with the AMF, Deblock is a reporting entity under both the standard CMF obligations and the specific PSAN requirements. This means dual compliance: general AML/CFT + crypto-specific regulations (MiCA transition).
+**For crypto-native FinTech:** As a PSAN registered with the AMF, CASP registered under MiCA crypto-native fintechs are a reporting entity under both the standard CMF obligations and the specific PSAN requirements. This means dual compliance: general AML/CFT + crypto-specific regulations (MiCA transition).
 
 ---
 
