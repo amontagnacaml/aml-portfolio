@@ -237,7 +237,7 @@ This report is submitted in accordance with Article L.561-15 of the Code monéta
 
 Given the case complexity and financial volume, Tracfin was notified via direct email contact on 2026-04-13 in accordance with the best practice for urgent/sensitive cases outlined in Tracfin's 2024 operational guidance.
 
-**Submitted by:** FinCrime Specialist, Deblock SA
+**Submitted by:** FinCrime Specialist, Fintech SA
 **Date:** 2026-04-16
 **Platform:** ERMES
 
