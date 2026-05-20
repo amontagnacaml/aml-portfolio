@@ -77,7 +77,7 @@ Two complete Tracfin-compliant SARs written using the 5W framework and incorpora
 
 ## Case Study
 
-**Money Mule Investigation — Kevin Osei**
+**Money Mule Investigation — Kevin Osei** (in progress) 
 
 End-to-end investigation demonstrating how SQL detection queries, transaction analysis, and SAR writing work together to identify and report a money mule operation. Covers detection triggers, investigation workflow, regulatory failures, and lessons learned.
 
