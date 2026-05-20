@@ -86,7 +86,7 @@ When Tracfin identifies an imminent risk (typically in fraud or terrorism financ
 | **Communication** | Via ERMES platform — reporting entity must monitor for instructions |
 | **Non-compliance** | Executing a blocked transaction = criminal liability |
 
-### Practical Implications for Deblock
+### Practical Implications 
 
 In a crypto-native environment, droit d'opposition raises specific challenges: crypto transactions are irreversible once confirmed on-chain. This means the blocking order must be actioned **before** the on-chain transaction is broadcast. Internal procedures must ensure that suspicious crypto transfers can be held in a pending state within the platform before blockchain confirmation.
 
