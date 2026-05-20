@@ -44,7 +44,7 @@ aml-portfolio/
 
 ---
 
-## SQL Queries — AML Detection
+## SQL Queries — AML Detection (in progress)
 
 Five production-ready queries designed to automate suspicious transaction detection. Each query includes extensive comments explaining the AML use case, regulatory basis, real-world application, and false positive reduction strategies.
 
