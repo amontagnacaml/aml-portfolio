@@ -27,6 +27,7 @@ Each SAR is accompanied by a brief **case context note** summarising the typolog
 **Risk Level:** HIGH
 **Typology:** Money Mule — Velocity Detection
 **Subject:** Individual customer, Romanian national, Paris
+
 **Key Red Flags:**
 - Incoming volume inconsistent with declared revenue
 - Over 80% of income scattered to multiple unrelated parties
@@ -43,6 +44,7 @@ This case was identified via a velocity detection query flagging abnormal incomi
 **Risk Level:** CRITICAL
 **Typology:** Crypto Layering — Circular Flows
 **Subject:** Individual customer, multi-jurisdictional exposure
+
 **Key Red Flags:**
 - Circular fund flows across 4 countries
 - ETH crypto layering
@@ -60,6 +62,7 @@ This case was escalated to CRITICAL following identification of circular flows a
 **Typology:** USDT-TRC20 Structuring (Smurfing)
 **Subject:** Individual customer, French national, salaried employee, Lyon
 **Declared Income:** ~2,200€/month
+
 **Key Red Flags:**
 - 12 incoming transfers from 12 unrelated individuals
 - All amounts systematically below 2,000€ threshold
@@ -78,6 +81,7 @@ Alert triggered by incoming velocity and threshold-avoidance behaviour. Investig
 **Typology:** Chain Hopping — Multi-Blockchain to USDT-TRC20
 **Subject:** Individual customer, French national, freelance developer, Paris
 **Declared Income:** ~3,500€/month (variable)
+
 **Key Red Flags:**
 - 10 crypto receptions across 3 distinct blockchains (ETH, BTC, SOL)
 - 14,100€ received in 8 weeks (x4 monthly income)
@@ -97,6 +101,7 @@ Alert triggered by multi-chain incoming flows converging on the account. Investi
 **Typology:** PEP — VASP Exposure + Integration via SEPA
 **Subject:** Individual customer, French national, Deputy Mayor (domestic PEP), Lyon
 **Declared Income:** ~4,800€/month
+
 **Key Red Flags:**
 - PEP status — Enhanced Due Diligence applied at onboarding
 - 4 transactions from UAE-based unregistered VASP (non-AMF)
@@ -117,6 +122,7 @@ Alert triggered by behavioural shift after 6 months of normal activity. Investig
 **Typology:** Money Mule — International Transfers to High-Risk Jurisdictions
 **Subject:** Individual customer, British national, real estate agent, Paris
 **Declared Income:** ~2,800€/month (variable commissions)
+
 **Key Red Flags:**
 - 9 incoming transfers from 9 unrelated French individuals
 - All amounts below 2,000€ (structuring behaviour)
