@@ -280,3 +280,6 @@ Given the case complexity and financial volume, Tracfin was notified via direct 
 | **Income Variance Analysis** | 892% variance — immediate CRITICAL escalation |
 | **Multi-Recipient Dispersion** | 1 account → 3 entities + crypto + cash across 4 countries |
 | **Velocity Detection** | Monthly volume increase from €8k to €46k in 6 months |
+
+
+Fictitious case — created for AML portfolio and educational purposes only.
