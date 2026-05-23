@@ -1,122 +1,176 @@
-# Transaction Monitoring & AML Portfolio — FinTech Compliance Specialist
+# AML/FinCrime SAR Portfolio
 
-## About
+This repository contains a collection of Tracfin-compliant Suspicious Activity Reports (SARs) drafted as part of an ongoing self-directed Financial Crime compliance training programme.
 
-FinTech Compliance Analyst with 2+ years of continuous client risk monitoring (KYC/KYB) and 1+ year of transaction-level financial profiling. This portfolio demonstrates the technical and regulatory skills I apply to suspicious transaction detection, SAR writing, and AML compliance within a French-regulated FinTech environment.
-
-Note: This portfolio focuses on transaction monitoring and financial 
-crime detection, complementing a core background in KYB/KYC continuous 
-monitoring and corporate risk assessment (UBO identification, beneficial 
-ownership structures, nominee director detection).
-
-**Core expertise:** Variance analysis between declared revenue and actual transaction volumes, AML typology detection (structuring, pass-through, layering), formal escalation workflows, and French regulatory compliance (Tracfin, ACPR, CNRLT).
+All cases are **entirely fictitious** and created for educational and portfolio purposes only. They follow the 5W framework (Who, What, When, Where, Why) in accordance with Tracfin quality standards and Article L.561-15 of the French Monetary and Financial Code (CMF).
 
 ---
 
-## Repository Structure
+## About This Portfolio
 
-```
-aml-portfolio/
-│
-├── README.md
-│
-├── sql-queries/
-│   ├── 01_velocity_detection.sql
-│   ├── 02_pass_through_detection.sql
-│   ├── 03_income_variance_analysis.sql
-│   ├── 04_circular_pattern_detection.sql
-│   └── 05_multi_recipient_dispersion.sql
-│
-├── sars/
-│   ├── SAR_01_Elena_Popescu_Velocity.md
-│   └── SAR_02_Bogdan_M_PassThrough.md
-│
-├── case-studies/
-│   └── money_mule_investigation_kevin_osei.md
-│
-├── regulatory-docs/
-│   ├── Tracfin_Procedures_Guide.md
-│   └── CNRLT_Red_Flags.md
-│
-└── schema/
-    └── sample_database_schema.sql
-```
+The SARs in this repository were drafted to develop hands-on expertise in:
+- Tracfin declaration process and ERMES submission standards
+- AML typology identification (structuring, layering, integration, chain hopping, money mule)
+- Crypto-asset specific risks (USDT-TRC20, VASP exposure, blockchain analytics)
+- PEP obligations and Enhanced Due Diligence (EDD)
+- French regulatory framework (L.561-15, L.561-10, R.561-18 CMF)
+
+Each SAR is accompanied by a brief **case context note** summarising the typology, subject profile, and key red flags — enabling faster navigation and review.
 
 ---
 
-## SQL Queries — AML Detection (in progress)
-
-Five production-ready queries designed to automate suspicious transaction detection. Each query includes extensive comments explaining the AML use case, regulatory basis, real-world application, and false positive reduction strategies.
-
-| # | Query | Typology Detected | Key Metrics |
-|---|-------|------------------|-------------|
-| 1 | **Velocity Detection** | Rapid account depletion after funding | Time-to-drain, outgoing ratio within 72h window |
-| 2 | **Pass-Through Detection** | Funds transit without retention | Incoming ≈ outgoing within short time window, low retention ratio |
-| 3 | **Income Variance Analysis** | Declared revenue vs. actual volume | Variance %, risk categorisation thresholds |
-| 4 | **Circular Pattern Detection** | Account loops (A→B→C→A) | Bidirectional flows, network analysis |
-| 5 | **Multi-Recipient Dispersion** | One account funding many recipients | Recipient count, geographic spread, time clustering |
-
-> **Note on Query #3 — Income Variance Analysis:** This query directly automates my current manual workflow. In my role, I aggregate 12-month transaction data per client and compare it against declared revenue to calculate variance. This query performs the same analysis in real-time, enabling continuous monitoring rather than periodic review.
+## SAR Index
 
 ---
 
-## Suspicious Activity Reports (SARs)
+### SAR 001 — Elena Popescu
+**Risk Level:** HIGH
+**Typology:** Money Mule — Velocity Detection
+**Subject:** Individual customer, Romanian national, Paris
+**Key Red Flags:**
+- Incoming volume inconsistent with declared revenue
+- Over 80% of income scattered to multiple unrelated parties
+- Transactions with crypto mixers and high-risk jurisdictions
+- 200% volume increase in one month
+- Funds never retained more than 3 days
 
-Two complete Tracfin-compliant SARs written using the 5W framework and incorporating the quality standards from **Tracfin's 2024 Activity Review**. Each SAR includes full subject identification, transaction analysis, suspected underlying offences with legal references, customer communication assessment, and a checklist of red flags.
-
-| # | Case | Risk Level | Key Typologies | Suspected Offences |
-|---|------|-----------|----------------|-------------------|
-| 1 | **Elena Popescu** | HIGH | Velocity + profile mismatch + pass-through | ML (Art. 324-1 CP), money mule, structuring |
-| 2 | **Bogdan M.** | CRITICAL | Circular flows + shell companies + crypto layering + cash structuring | Organised ML (Art. 324-2 CP), structuring, BO obscuring, tax evasion |
-
-> **Important:** These are fictional cases created for portfolio demonstration. No real persons or transactions are represented.
-
-**Tracfin 2024 compliance:** Both SARs follow the specific best practices outlined in Tracfin's latest activity review — substantiated analysis (not defensive filings), suspected underlying offences identified, customer communication assessed, and all structured fields documented.
-
----
-
-## Case Study
-
-**Money Mule Investigation — Kevin Osei** (in progress) 
-
-End-to-end investigation demonstrating how SQL detection queries, transaction analysis, and SAR writing work together to identify and report a money mule operation. Covers detection triggers, investigation workflow, regulatory failures, and lessons learned.
+**Audit Trail Note:**
+This case was identified via a velocity detection query flagging abnormal incoming flow relative to declared income. The investigation revealed a classic money mule pattern with crypto mixer exposure. SAR submitted at HIGH risk level.
 
 ---
 
-## Regulatory Documentation
+### SAR 002 — Bogdan M.
+**Risk Level:** CRITICAL
+**Typology:** Crypto Layering — Circular Flows
+**Subject:** Individual customer, multi-jurisdictional exposure
+**Key Red Flags:**
+- Circular fund flows across 4 countries
+- ETH crypto layering
+- Cash structuring behaviour
+- Multiple entities with no clear business purpose
+- Classic integration attempt pattern
 
-| Document | Contents |
-|----------|----------|
-| **Tracfin Procedures Guide** | Complete reference: Tracfin structure, 5-day deadline, droit d'opposition, droits de communication, post-SAR process, good faith protection, penalty structure, 2024 best practices, SAR writing checklist |
-| **CNRLT Red Flags** | French AML/CFT red flag indicators: transaction, customer, crypto-specific, and geographic risk factors |
-
----
-
-## Technical Environment
-
-- **SQL:** SQLite (queries tested on sqliteonline.com, compatible with PostgreSQL/MySQL with minor syntax adjustments)
-- **Regulatory framework:** French AML/CFT (Code monétaire et financier, Code pénal, CNRLT, Tracfin, ACPR, FATF, EU 5th/6th Directives, MiCA)
-- **SAR format:** Tracfin/ERMES compliant
-
----
-
-## Why This Portfolio
-
-Most compliance professionals describe their skills on a CV. This portfolio **demonstrates** them:
-
-- The SQL queries show I can write detection logic, not just review alerts
-- The SARs show I can produce regulatory-grade output following Tracfin's own quality standards
-- The case study shows I can connect detection to investigation to reporting
-- The regulatory documentation shows I understand the framework I operate within
+**Audit Trail Note:**
+This case was escalated to CRITICAL following identification of circular flows across multiple jurisdictions with no legitimate business rationale. ETH layering combined with cash structuring indicated an active integration attempt. SAR submitted at CRITICAL risk level.
 
 ---
 
-## Contact
+### SAR 003 — Angela Joly
+**Risk Level:** HIGH
+**Typology:** USDT-TRC20 Structuring (Smurfing)
+**Subject:** Individual customer, French national, salaried employee, Lyon
+**Declared Income:** ~2,200€/month
+**Key Red Flags:**
+- 12 incoming transfers from 12 unrelated individuals
+- All amounts systematically below 2,000€ threshold
+- 18,200€ received in 6 weeks (x8 monthly income)
+- Immediate conversion to USDT-TRC20 via application
+- Transfers to 3 unidentified external TRC20 wallets
+- Justification: "remboursements entre amis" — no supporting evidence
 
-- **Email:** a.montagnac.pro@gmail.com
-- **LinkedIn:** https://www.linkedin.com/in/a-montagnac-8915a03ba
-- **Location:** Paris, France — available for remote positions across EU
+**Audit Trail Note:**
+Alert triggered by incoming velocity and threshold-avoidance behaviour. Investigation confirmed a smurfing pattern — fragmented incoming flows immediately converted to USDT-TRC20 and transferred to anonymous wallets. No legitimate explanation obtained despite formal request. SAR formalised at HIGH risk level under Article L.561-15 CMF.
 
 ---
 
-*This portfolio is maintained as a living document and updated as new detection queries, case studies, and regulatory developments are added.*
+### SAR 004 — Thomas Renard
+**Risk Level:** HIGH
+**Typology:** Chain Hopping — Multi-Blockchain to USDT-TRC20
+**Subject:** Individual customer, French national, freelance developer, Paris
+**Declared Income:** ~3,500€/month (variable)
+**Key Red Flags:**
+- 10 crypto receptions across 3 distinct blockchains (ETH, BTC, SOL)
+- 14,100€ received in 8 weeks (x4 monthly income)
+- Each reception immediately converted to USDT (<12h)
+- All USDT transferred to a single unidentified TRC20 wallet (<6h)
+- Source ETH wallet tagged "high risk" on TRONSCAN
+- No crypto purchases from account — transit only
+- Justification: "trading on various platforms" — no evidence provided
+
+**Audit Trail Note:**
+Alert triggered by multi-chain incoming flows converging on the account. Investigation revealed a chain hopping pattern — funds received across Ethereum, Bitcoin and Solana networks, immediately converted to USDT-TRC20 and consolidated into a single anonymous wallet. The use of 3 distinct blockchains renders source tracing impossible without specialised analytics tools. SAR formalised at HIGH risk level under Article L.561-15 CMF.
+
+---
+
+### SAR 005 — Fabien Castelle
+**Risk Level:** CRITICAL
+**Typology:** PEP — VASP Exposure + Integration via SEPA
+**Subject:** Individual customer, French national, Deputy Mayor (domestic PEP), Lyon
+**Declared Income:** ~4,800€/month
+**Key Red Flags:**
+- PEP status — Enhanced Due Diligence applied at onboarding
+- 4 transactions from UAE-based unregistered VASP (non-AMF)
+- 24,000€ received in 2 months (x5 monthly income)
+- Immediate USDC to USDT-TRC20 conversion
+- Transfers to 2 unidentified TRC20 wallets
+- 3 SEPA transfers in round amounts (3,000€ / 5,000€ / 8,000€) — integration indicator
+- Source of wealth not demonstrated despite EDD obligations
+- Covers all 3 stages: placement, layering, integration
+
+**Audit Trail Note:**
+Alert triggered by behavioural shift after 6 months of normal activity. Investigation revealed funds received from a non-AMF regulated VASP in a high-risk jurisdiction, immediately converted and transferred, while simultaneous round-amount SEPA transfers indicated integration into the legitimate financial circuit. PEP status elevated the risk level to CRITICAL. SAR formalised under Articles L.561-15 and L.561-10 CMF.
+
+---
+
+### SAR 006 — Cherry Cooke
+**Risk Level:** HIGH
+**Typology:** Money Mule — International Transfers to High-Risk Jurisdictions
+**Subject:** Individual customer, British national, real estate agent, Paris
+**Declared Income:** ~2,800€/month (variable commissions)
+**Key Red Flags:**
+- 9 incoming transfers from 9 unrelated French individuals
+- All amounts below 2,000€ (structuring behaviour)
+- 13,500€ received in 8 weeks (x4.8 monthly income)
+- All funds transferred to 3 accounts in Romania, Moldova and Bulgaria (<48h)
+- Bulgaria on FATF enhanced monitoring list
+- Destination countries not declared at onboarding (only UK declared)
+- Justification: "professional transfers — real estate investments abroad" — no evidence
+- Account used exclusively as a transit point
+
+**Audit Trail Note:**
+Alert triggered by incoming fragmented flows immediately transferred to high-risk jurisdictions. Investigation confirmed a money mule pattern — account used as a transit point between 9 unrelated French individuals and 3 foreign accounts in jurisdictions not declared at onboarding. Justification provided was inconsistent with the observed geographic and financial pattern. SAR formalised at HIGH risk level under Article L.561-15 CMF.
+
+---
+
+## Typology Coverage
+
+| SAR | Smurfing | Chain Hopping | Money Mule | PEP/EDD | Layering | Integration |
+|-----|----------|---------------|------------|---------|----------|-------------|
+| Elena Popescu | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
+| Bogdan M. | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Angela Joly | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
+| Thomas Renard | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
+| Fabien Castelle | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| Cherry Cooke | ✅ | ❌ | ✅ | ❌ | ✅ | ❌ |
+
+---
+
+## Legal Framework
+
+All SARs reference the French regulatory framework:
+- **Article L.561-15 CMF** — Obligation de déclaration de soupçon
+- **Article L.561-10 CMF** — Mesures de vigilance renforcée (EDD / PEP)
+- **Article R.561-18 CMF** — Définition des Personnes Politiquement Exposées
+- **ERMES Platform** — Tracfin submission portal
+- **MiCA / Travel Rule** — Crypto-asset regulatory framework
+
+---
+
+## SQL Detection Queries
+
+In addition to the SAR portfolio, this repository contains PostgreSQL detection queries covering:
+Current queries cover:
+- ✅ Velocity detection
+- ✅ Pass-through / transit account detection
+
+In progress:
+- 🔄 Structuring / threshold avoidance
+- 🔄 Layering pattern detection
+- 🔄 Multi-wallet analysis
+- 🔄 Risk scoring
+
+---
+
+*Portfolio built independently as part of a self-directed FinCrime compliance development programme — not required by current employer.*
+
+*All cases are entirely fictitious. Any resemblance to real persons or entities is coincidental.*
